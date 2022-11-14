@@ -26,10 +26,10 @@ final class GetDishesAction
         $query = ParamFetcher::fromRequestQuery($request);
 
         $getDishesQuery = new GetDishesQuery(
-            $query->getNullableString('sort') ?? 'name',
-            $query->getNullableString('order') ?? 'asc',
-            $query->getNullableInt('size') ?? 2,
-            $query->getNullableInt('page') ?? 1,
+            $query->getNullableString('sort'),
+            $query->getNullableString('order'),
+            $query->getNullableInt('size'),
+            $query->getNullableInt('page'),
         );
 
         $getDishes = ($this->getDishes)($getDishesQuery);
