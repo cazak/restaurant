@@ -25,7 +25,7 @@ final class AddToOrderAction
 
     public function __invoke(Request $request): Response
     {
-        $query = ParamFetcher::fromRequestQuery($request);
+        $query = ParamFetcher::fromRequestBody($request);
 
         $command = new AddToOrderCommand(
             $query->getRequiredString('dishId'),

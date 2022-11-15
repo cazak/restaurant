@@ -43,6 +43,6 @@ final class OrderRepository
 
     public function findByCustomer(string $customerId): ?Order
     {
-        return $this->repo->findOneBy(['owner' => $customerId]);
+        return $this->repo->findOneBy(['customerId' => $customerId]);
     }
 }

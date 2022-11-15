@@ -47,6 +47,7 @@ class Order implements AggregateRoot
         $this->customerId = $customerId;
         $this->createdAt = $createdAt;
         $this->status = OrderStatus::new();
+        $this->price = 0;
         $this->items = new ArrayCollection();
     }
 

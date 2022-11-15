@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/order/pay', methods: ['PUT'])]
+#[Route('/order/pay', methods: ['POST'])]
 #[AsController]
 final class PayOrderAction
 {
@@ -23,7 +23,7 @@ final class PayOrderAction
 
     public function __invoke(Request $request): Response
     {
-        $query = ParamFetcher::fromRequestQuery($request);
+        $query = ParamFetcher::fromRequestBody($request);
 
         $orderPayCommand = new OrderPayCommand(
             $query->getRequiredString('customerId'),
