@@ -93,8 +93,18 @@ class Order implements AggregateRoot
         return $this->customerId;
     }
 
+    public function getStatus(): OrderStatus
+    {
+        return $this->status;
+    }
+
     public function getCreatedAt(): DateTimeImmutable
     {
         return $this->createdAt;
+    }
+
+    public function getPrice(): float
+    {
+        return $this->price;
     }
 }

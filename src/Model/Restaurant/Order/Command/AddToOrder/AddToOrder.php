@@ -22,7 +22,7 @@ final class AddToOrder
     ) {
     }
 
-    public function __invoke(AddToOrderCommand $command): void
+    public function __invoke(AddToOrderCommand $command): string
     {
         $dish = $this->dishRepository->get($command->dishId);
         $order = $this->orderRepository->findByCustomer($command->customerId);
@@ -32,10 +32,12 @@ final class AddToOrder
             $this->orderRepository->add($order);
         }
 
-        $orderItem = $this->orderItemFromDish->create($dish, $order);
+        $orderItem = $this->orderItemFromDish->createOrFind($dish, $order);
         $order->modify($orderItem);
 
         $this->orderItemRepository->add($orderItem);
         ($this->flush)();
+
+        return $order->getId()->getValue();
     }
 }
