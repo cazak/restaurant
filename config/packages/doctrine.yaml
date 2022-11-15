@@ -7,7 +7,7 @@ doctrine:
         #server_version: '13'
 
         types:
-            uuid_id: 'App\Model\Restaurant\Shared\Entity\ValueObject\IdType'
+            uuid_id: 'App\Model\Shared\Entity\ValueObject\IdType'
 
     orm:
         auto_generate_proxy_classes: true

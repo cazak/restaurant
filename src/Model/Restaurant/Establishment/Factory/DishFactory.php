@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Model\Restaurant\Establishment\Factory;
 
 use App\Model\Restaurant\Establishment\Entity\Dish;
-use App\Model\Restaurant\Shared\Entity\ValueObject\Id;
+use App\Model\Shared\Entity\ValueObject\Id;
 use DateTimeImmutable;
 
 final class DishFactory

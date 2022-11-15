@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Model\Restaurant\Shared\Entity\ValueObject;
+namespace App\Model\Shared\Entity\ValueObject;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\GuidType;
