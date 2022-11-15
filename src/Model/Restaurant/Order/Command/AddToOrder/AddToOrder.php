@@ -33,7 +33,7 @@ final class AddToOrder
         }
 
         $orderItem = $this->orderItemFromDish->create($dish, $order);
-        $order->addItem($orderItem);
+        $order->modify($orderItem);
 
         $this->orderItemRepository->add($orderItem);
         ($this->flush)();

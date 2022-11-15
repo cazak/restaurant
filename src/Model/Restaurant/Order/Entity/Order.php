@@ -66,15 +66,17 @@ class Order implements AggregateRoot
     /**
      * @throws AddItemToPaidOrderException
      */
-    public function addItem(OrderItem $orderItem): void
+    public function modify(OrderItem $orderItem): void
     {
         if ($this->status->isPaid()) {
             throw new AddItemToPaidOrderException();
         }
 
+        $this->price += $orderItem->getPrice();
         foreach ($this->items as $item) {
             if ($item->isEqual($orderItem)) {
                 $item->add($item->getQuantity() + 1);
+
                 return;
             }
         }

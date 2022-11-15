@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace App\Model\Restaurant\Order\Command\AddToOrder;
+namespace App\Model\Restaurant\Order\Command\Pay;
 
 use Webmozart\Assert\Assert;
 
-final class AddToOrderCommand
+final class OrderPayCommand
 {
     public function __construct(
-        public readonly string $dishId,
         public readonly string $customerId,
+        public readonly string $orderId,
     ) {
-        Assert::uuid($this->dishId);
         Assert::uuid($this->customerId);
+        Assert::uuid($this->orderId);
     }
 }

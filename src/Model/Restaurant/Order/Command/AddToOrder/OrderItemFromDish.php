@@ -11,7 +11,7 @@ use DateTimeImmutable;
 
 final class OrderItemFromDish
 {
-    private CONST DEFAULT_QUANTITY = 1;
+    private const DEFAULT_QUANTITY = 1;
 
     public function create(Dish $dish, Order $order): OrderItem
     {
