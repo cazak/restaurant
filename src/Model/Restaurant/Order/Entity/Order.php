@@ -74,6 +74,8 @@ class Order implements AggregateRoot
 
         foreach ($this->items as $item) {
             if ($item->isEqual($orderItem)) {
+                $item->add($item->getQuantity() + 1);
+                return;
             }
         }
         $this->items->add($orderItem);

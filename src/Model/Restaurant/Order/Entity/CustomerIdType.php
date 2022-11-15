@@ -25,4 +25,9 @@ final class CustomerIdType extends GuidType
     {
         return self::NAME;
     }
+
+    public function requiresSQLCommentHint(AbstractPlatform $platform) : bool
+    {
+        return true;
+    }
 }

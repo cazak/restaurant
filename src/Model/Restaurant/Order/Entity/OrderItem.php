@@ -22,19 +22,33 @@ class OrderItem
     #[ORM\Column(type: 'float')]
     private readonly float $price;
 
+    #[ORM\Column(type: 'integer')]
+    private int $quantity;
+
     #[ORM\Column(type: 'string')]
     private readonly string $title;
 
     #[ORM\Column(type: 'datetime_immutable')]
     private DateTimeImmutable $createdAt;
 
-    public function __construct(Id $id, DateTimeImmutable $createdAt, Order $order, float $price, string $title)
+    public function __construct(Id $id, DateTimeImmutable $createdAt, Order $order, float $price, string $title, int $quantity)
     {
         $this->id = $id;
         $this->createdAt = $createdAt;
         $this->order = $order;
         $this->price = $price;
         $this->title = $title;
+        $this->quantity = $quantity;
+    }
+
+    public function add(int $quantity): void
+    {
+        $this->quantity = $quantity;
+    }
+
+    public function isEqual(self $other): bool
+    {
+        return $this->getId()->getValue() === $other->getId()->getValue();
     }
 
     public function getId(): Id
@@ -55,6 +69,11 @@ class OrderItem
     public function getPrice(): float
     {
         return $this->price;
+    }
+
+    public function getQuantity(): int
+    {
+        return $this->quantity;
     }
 
     public function getTitle(): string

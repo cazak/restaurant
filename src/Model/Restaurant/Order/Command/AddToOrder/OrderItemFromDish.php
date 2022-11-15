@@ -11,6 +11,8 @@ use DateTimeImmutable;
 
 final class OrderItemFromDish
 {
+    private CONST DEFAULT_QUANTITY = 1;
+
     public function create(Dish $dish, Order $order): OrderItem
     {
         return new OrderItem(
@@ -19,6 +21,7 @@ final class OrderItemFromDish
             $order,
             $dish->getPrice(),
             $dish->getName(),
+            self::DEFAULT_QUANTITY
         );
     }
 }
