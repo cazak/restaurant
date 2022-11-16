@@ -29,6 +29,9 @@ class Order implements AggregateRoot
     #[ORM\Column(type: 'datetime_immutable')]
     private readonly DateTimeImmutable $createdAt;
 
+    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
+    private ?DateTimeImmutable $paidAt = null;
+
     #[ORM\Column(type: 'restaurant_order_status')]
     private OrderStatus $status;
 
@@ -60,6 +63,7 @@ class Order implements AggregateRoot
             throw new OrderAlreadyPaidException();
         }
 
+        $this->paidAt = new DateTimeImmutable();
         $this->status = OrderStatus::paid();
         $this->recordEvent(new OrderPaid($this->id));
     }
@@ -104,8 +108,18 @@ class Order implements AggregateRoot
         return $this->createdAt;
     }
 
+    public function getPaidAt(): DateTimeImmutable
+    {
+        return $this->paidAt;
+    }
+
     public function getPrice(): float
     {
         return $this->price;
+    }
+
+    public function getItems(): Collection
+    {
+        return $this->items;
     }
 }
