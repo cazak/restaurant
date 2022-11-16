@@ -16,34 +16,35 @@ final class TopDishesInPeriodByQuantity
 
     public function daily(): array
     {
-        $start = mktime(0, 0, 0, (int)date('m'), (int)date('d'), (int)date('Y'));
-        $end = mktime(23, 59, 59, (int)date('m'), (int)date('d'), (int)date('Y'));
+        $start = mktime(0, 0, 0, (int) date('m'), (int) date('d'), (int) date('Y'));
+        $end = mktime(23, 59, 59, (int) date('m'), (int) date('d'), (int) date('Y'));
 
         return $this->getQuery($start, $end);
     }
 
     public function weekly(): array
     {
-        $start = mktime(0, 0, 0, (int)date('m'), date('d') - 6, (int)date('Y'));
-        $end = mktime(23, 59, 59, (int)date('m'), (int)date('d'), (int)date('Y'));
+        $start = mktime(0, 0, 0, (int) date('m'), date('d') - 6, (int) date('Y'));
+        $end = mktime(23, 59, 59, (int) date('m'), (int) date('d'), (int) date('Y'));
 
         return $this->getQuery($start, $end);
     }
 
     public function monthly(): array
     {
-        $start = mktime(0, 0, 0, (int)date('m'), 1, (int)date('Y'));
-        $end = mktime(23, 59, 59, (int)date('m'), (int)date('d'), (int)date('Y'));
+        $start = mktime(0, 0, 0, (int) date('m'), 1, (int) date('Y'));
+        $end = mktime(23, 59, 59, (int) date('m'), (int) date('d'), (int) date('Y'));
 
         return $this->getQuery($start, $end);
     }
 
     private function getQuery(int $start, int $end): array
     {
-        $dateStart = (new DateTimeImmutable)->setTimestamp($start);
-        $dateEnd = (new DateTimeImmutable)->setTimestamp($end);
+        $dateStart = (new DateTimeImmutable())->setTimestamp($start);
+        $dateEnd = (new DateTimeImmutable())->setTimestamp($end);
 
         $qb = $this->connection->createQueryBuilder();
+
         return $qb
             ->select(['SUM(i.quantity) AS qty', 'i.id'])
             ->from('restaurant_order_item', 'i')

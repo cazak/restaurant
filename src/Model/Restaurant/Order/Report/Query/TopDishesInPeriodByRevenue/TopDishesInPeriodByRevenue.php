@@ -16,8 +16,8 @@ final class TopDishesInPeriodByRevenue
 
     public function daily(): array
     {
-        $start = mktime(0, 0, 0, (int)date('m'), (int)date('d'), (int)date('Y'));
-        $end = mktime(23, 59, 59, (int)date('m'), (int)date('d'), (int)date('Y'));
+        $start = mktime(0, 0, 0, (int) date('m'), (int) date('d'), (int) date('Y'));
+        $end = mktime(23, 59, 59, (int) date('m'), (int) date('d'), (int) date('Y'));
 
         return $this->getQuery($start, $end);
     }
@@ -32,16 +32,16 @@ final class TopDishesInPeriodByRevenue
 
     public function monthly(): array
     {
-        $start = mktime(0, 0, 0, (int)date('m'), 1, (int)date('Y'));
-        $end = mktime(23, 59, 59, (int)date('m'), (int)date('d'), (int)date('Y'));
+        $start = mktime(0, 0, 0, (int) date('m'), 1, (int) date('Y'));
+        $end = mktime(23, 59, 59, (int) date('m'), (int) date('d'), (int) date('Y'));
 
         return $this->getQuery($start, $end);
     }
 
     private function getQuery(int $start, int $end): array
     {
-        $dateStart = (new DateTimeImmutable)->setTimestamp($start);
-        $dateEnd = (new DateTimeImmutable)->setTimestamp($end);
+        $dateStart = (new DateTimeImmutable())->setTimestamp($start);
+        $dateEnd = (new DateTimeImmutable())->setTimestamp($end);
 
         return $this->connection->createQueryBuilder()
             ->select(['SUM(i.quantity * i.price) AS revenue', 'i.id'])

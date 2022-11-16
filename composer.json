@@ -12,6 +12,7 @@
         "doctrine/doctrine-bundle": "^2.7",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.13",
+        "fakerphp/faker": "^1.20",
         "knplabs/knp-paginator-bundle": "5.9.0",
         "ramsey/uuid": "^4.6",
         "symfony/console": "5.4.*",
@@ -25,8 +26,14 @@
         "webmozart/assert": "^1.11"
     },
     "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^3.4",
         "friendsofphp/php-cs-fixer": "^3.13",
-        "symfony/maker-bundle": "^1.48"
+        "liip/test-fixtures-bundle": "^2.4",
+        "phpunit/phpunit": "^9.5",
+        "symfony/browser-kit": "5.4.*",
+        "symfony/css-selector": "5.4.*",
+        "symfony/maker-bundle": "^1.48",
+        "symfony/phpunit-bridge": "^6.1"
     },
     "config": {
         "allow-plugins": {
