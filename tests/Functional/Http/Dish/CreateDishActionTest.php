@@ -9,6 +9,7 @@ use App\Model\Restaurant\Establishment\Entity\DishRepository;
 use App\Tests\Functional\ApiTestCase;
 use App\Tests\Tools\DITools;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 
 /**
  * @internal
@@ -16,6 +17,8 @@ use Symfony\Component\HttpFoundation\Response;
 final class CreateDishActionTest extends ApiTestCase
 {
     use DITools;
+
+    private const URI = '/dishes/create';
 
     protected function setUp(): void
     {
@@ -28,7 +31,7 @@ final class CreateDishActionTest extends ApiTestCase
         self::ensureKernelShutdown();
         $client = self::createClient();
 
-        $client->request('POST', '/dishes/create', [
+        $client->request('POST', self::URI, [
             'name' => 'test_dish',
             'price' => 15.5,
         ]);
@@ -43,5 +46,19 @@ final class CreateDishActionTest extends ApiTestCase
         $this->baseAssert($response, Response::HTTP_CREATED);
         self::assertEquals('id', array_keys($responseData)[0]);
         self::assertEquals($responseData['id'], $dish->getId()->getValue());
+    }
+
+    public function test_error(): void
+    {
+        self::ensureKernelShutdown();
+        $client = self::createClient();
+        $client->catchExceptions(false);
+
+        $this->expectException(MethodNotAllowedHttpException::class);
+        $client->request('GET', self::URI, [
+            'name' => 'test_dish',
+        ]);
+
+        $this->assertEquals(405, $client->getResponse()->getStatusCode());
     }
 }

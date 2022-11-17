@@ -21,7 +21,7 @@ class Order implements AggregateRoot
 
     #[ORM\Id]
     #[ORM\Column(type: 'uuid_id')]
-    private readonly Id $id;
+    private Id $id;
 
     #[ORM\Column(type: 'order_customer_uuid_id')]
     private readonly CustomerId $customerId;
