@@ -30,6 +30,11 @@ final class OrderItemRepository
         $this->em->remove($dish);
     }
 
+    public function findByDish(string $id): ?OrderItem
+    {
+        return $this->repo->findOneBy(['dishId' => $id]);
+    }
+
     public function find(string $id): ?OrderItem
     {
         return $this->repo->findOneBy(['id' => $id]);

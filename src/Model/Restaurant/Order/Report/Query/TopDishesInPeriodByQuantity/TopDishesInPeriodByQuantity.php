@@ -46,7 +46,7 @@ final class TopDishesInPeriodByQuantity
         $qb = $this->connection->createQueryBuilder();
 
         return $qb
-            ->select(['SUM(i.quantity) AS qty', 'i.id'])
+            ->select(['SUM(i.quantity) AS qty', 'i.dish_id'])
             ->from('restaurant_order_item', 'i')
 //            ->innerJoin('i', 'restaurant_order', 'o',
 //                $qb->expr()->and(
@@ -62,7 +62,7 @@ final class TopDishesInPeriodByQuantity
             ->setParameter('dateStart', $dateStart->format('Y-m-d H:i:s'))
             ->setParameter('dateEnd', $dateEnd->format('Y-m-d H:i:s'))
             ->setParameter('statusPaid', OrderStatus::STATUS_PAID)
-            ->groupBy('i.id')
+            ->groupBy('i.dish_id')
             ->orderBy('qty', 'DESC')
             ->executeQuery()
             ->fetchAllAssociative();

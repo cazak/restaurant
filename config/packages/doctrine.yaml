@@ -10,6 +10,7 @@ doctrine:
             uuid_id: 'App\Model\Shared\Entity\ValueObject\IdType'
             order_customer_uuid_id: 'App\Model\Restaurant\Order\Entity\CustomerIdType'
             restaurant_order_status: 'App\Model\Restaurant\Order\Entity\OrderStatusType'
+            order_item_dish_uuid_id: 'App\Model\Restaurant\Order\Entity\DishIdType'
 
     orm:
         auto_generate_proxy_classes: true

@@ -16,6 +16,9 @@ class OrderItem
     #[ORM\Column(type: 'uuid_id')]
     private readonly Id $id;
 
+    #[ORM\Column(type: 'order_item_dish_uuid_id')]
+    private readonly DishId $dishId;
+
     #[ORM\ManyToOne(inversedBy: 'items'), ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private readonly Order $order;
 
@@ -31,9 +34,10 @@ class OrderItem
     #[ORM\Column(type: 'datetime_immutable')]
     private DateTimeImmutable $createdAt;
 
-    public function __construct(Id $id, DateTimeImmutable $createdAt, Order $order, float $price, string $title, int $quantity)
+    public function __construct(Id $id, DishId $dishId, DateTimeImmutable $createdAt, Order $order, float $price, string $title, int $quantity)
     {
         $this->id = $id;
+        $this->dishId = $dishId;
         $this->createdAt = $createdAt;
         $this->order = $order;
         $this->price = $price;
@@ -54,6 +58,11 @@ class OrderItem
     public function getId(): Id
     {
         return $this->id;
+    }
+
+    public function getDishId(): DishId
+    {
+        return $this->dishId;
     }
 
     public function getOrder(): Order

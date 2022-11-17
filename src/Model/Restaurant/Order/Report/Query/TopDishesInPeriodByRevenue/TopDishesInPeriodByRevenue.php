@@ -44,7 +44,7 @@ final class TopDishesInPeriodByRevenue
         $dateEnd = (new DateTimeImmutable())->setTimestamp($end);
 
         return $this->connection->createQueryBuilder()
-            ->select(['SUM(i.quantity * i.price) AS revenue', 'i.id'])
+            ->select(['SUM(i.quantity * i.price) AS revenue', 'i.dish_id'])
             ->from('restaurant_order_item', 'i')
 //            ->innerJoin('i', 'restaurant_order', 'o',
 //                'o.paid_at >= :dateStart
@@ -58,7 +58,7 @@ final class TopDishesInPeriodByRevenue
             ->setParameter('dateStart', $dateStart->format('Y-m-d H:i:s'))
             ->setParameter('dateEnd', $dateEnd->format('Y-m-d H:i:s'))
             ->setParameter('statusPaid', OrderStatus::STATUS_PAID)
-            ->groupBy('i.id')
+            ->groupBy('i.dish_id')
             ->orderBy('revenue', 'DESC')
             ->executeQuery()
             ->fetchAllAssociative();
