@@ -48,13 +48,6 @@ final class TopDishesInPeriodByQuantity
         return $qb
             ->select(['SUM(i.quantity) AS qty', 'i.dish_id'])
             ->from('restaurant_order_item', 'i')
-//            ->innerJoin('i', 'restaurant_order', 'o',
-//                $qb->expr()->and(
-//                    $qb->expr()->comparison('o.paid_at', '>=', ':dateStart'),
-//                    $qb->expr()->comparison('o.paid_at', '<=', ':dateEnd'),
-//                    $qb->expr()->comparison('o.status', '>=', ':statusPaid'),
-//                )
-//            )
             ->innerJoin('i', 'restaurant_order', 'o', 'o.id = i.order_id')
             ->andWhere('o.paid_at >= :dateStart')
             ->andWhere('o.paid_at <= :dateEnd')

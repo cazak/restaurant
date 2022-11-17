@@ -46,11 +46,6 @@ final class TopDishesInPeriodByRevenue
         return $this->connection->createQueryBuilder()
             ->select(['SUM(i.quantity * i.price) AS revenue', 'i.dish_id'])
             ->from('restaurant_order_item', 'i')
-//            ->innerJoin('i', 'restaurant_order', 'o',
-//                'o.paid_at >= :dateStart
-//                AND o.paid_at <= :dateEnd
-//                AND o.status = :statusPaid'
-//            )
             ->innerJoin('i', 'restaurant_order', 'o', 'o.id = i.order_id')
             ->andWhere('o.paid_at >= :dateStart')
             ->andWhere('o.paid_at <= :dateEnd')
