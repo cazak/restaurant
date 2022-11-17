@@ -59,6 +59,6 @@ final class CreateDishActionTest extends ApiTestCase
             'name' => 'test_dish',
         ]);
 
-        $this->assertEquals(405, $client->getResponse()->getStatusCode());
+        self::assertEquals(405, $client->getResponse()->getStatusCode());
     }
 }

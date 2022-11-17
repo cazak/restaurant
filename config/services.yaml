@@ -22,3 +22,13 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+when@dev:
+    services:
+        _defaults:
+            autowire: true
+
+        App\Tests\Resource\DevFixture\:
+            resource: '%kernel.project_dir%/tests/Resource/DevFixture/*'
+            tags:
+                - { "name": "doctrine.fixture.orm" }

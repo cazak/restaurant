@@ -17,6 +17,9 @@ use Liip\TestFixturesBundle\Services\DatabaseToolCollection;
 use Liip\TestFixturesBundle\Services\DatabaseTools\AbstractDatabaseTool;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * @internal
+ */
 final class PayOrderActionTest extends ApiTestCase
 {
     use DITools;
@@ -24,7 +27,7 @@ final class PayOrderActionTest extends ApiTestCase
     private const URI = '/order/pay';
     private AbstractDatabaseTool $databaseTool;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->repo = $this->getService(OrderRepository::class);
@@ -37,7 +40,7 @@ final class PayOrderActionTest extends ApiTestCase
         /** @var Order $order */
         $order = $referenceRepository->getReference(OrderFixture::REFERENCE);
 
-        $this->assertEquals(OrderStatus::STATUS_NEW, $order->getStatus()->getValue());
+        self::assertEquals(OrderStatus::STATUS_NEW, $order->getStatus()->getValue());
 
         self::ensureKernelShutdown();
         $client = self::createClient();
@@ -51,7 +54,7 @@ final class PayOrderActionTest extends ApiTestCase
         $responseData = json_decode($response->getContent(), true);
 
         $this->baseAssert($response, Response::HTTP_OK);
-        $this->assertEquals(OrderStatus::STATUS_NEW, $order->getStatus()->getValue());
+        self::assertEquals(OrderStatus::STATUS_NEW, $order->getStatus()->getValue());
     }
 
     public function test_error_buyer(): void
@@ -60,7 +63,7 @@ final class PayOrderActionTest extends ApiTestCase
         /** @var Order $order */
         $order = $referenceRepository->getReference(OrderFixture::REFERENCE);
 
-        $this->assertEquals(OrderStatus::STATUS_NEW, $order->getStatus()->getValue());
+        self::assertEquals(OrderStatus::STATUS_NEW, $order->getStatus()->getValue());
 
         self::ensureKernelShutdown();
         $client = self::createClient();
@@ -69,7 +72,7 @@ final class PayOrderActionTest extends ApiTestCase
 
         $client->catchExceptions(false);
         $client->request('POST', self::URI, [
-            'customerId' => Id::next(),
+            'customerId' => Id::next(), // random id
             'orderId' => $order->getId()->getValue(),
         ]);
     }
@@ -80,7 +83,7 @@ final class PayOrderActionTest extends ApiTestCase
         /** @var Order $order */
         $order = $referenceRepository->getReference(OrderFixture::REFERENCE);
 
-        $this->assertEquals(OrderStatus::STATUS_NEW, $order->getStatus()->getValue());
+        self::assertEquals(OrderStatus::STATUS_NEW, $order->getStatus()->getValue());
 
         self::ensureKernelShutdown();
         $client = self::createClient();

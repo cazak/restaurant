@@ -16,6 +16,9 @@ use Liip\TestFixturesBundle\Services\DatabaseToolCollection;
 use Liip\TestFixturesBundle\Services\DatabaseTools\AbstractDatabaseTool;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * @internal
+ */
 final class AddToOrderActionTest extends ApiTestCase
 {
     use DITools;
@@ -52,9 +55,9 @@ final class AddToOrderActionTest extends ApiTestCase
 
         // assert
         $this->baseAssert($response, Response::HTTP_OK);
-        $this->assertEquals($order->getId()->getValue(), $responseData['orderId']);
-        $this->assertEquals($order->getPrice(), $responseData['price']);
-        $this->assertEquals(OrderStatus::STATUS_NEW, $responseData['status']);
+        self::assertEquals($order->getId()->getValue(), $responseData['orderId']);
+        self::assertEquals($order->getPrice(), $responseData['price']);
+        self::assertEquals(OrderStatus::STATUS_NEW, $responseData['status']);
     }
 
     public function test_success_create_and_add(): void
@@ -84,9 +87,9 @@ final class AddToOrderActionTest extends ApiTestCase
 
         // assert
         $this->baseAssert($response, Response::HTTP_OK);
-        $this->assertEquals($order->getId()->getValue(), $responseData['orderId']);
-        $this->assertEquals($order->getPrice(), $responseData['price']);
-        $this->assertEquals(DishForOrderFixture::PRICE * 2, (float) $responseData['price']);
-        $this->assertEquals(OrderStatus::STATUS_NEW, $responseData['status']);
+        self::assertEquals($order->getId()->getValue(), $responseData['orderId']);
+        self::assertEquals($order->getPrice(), $responseData['price']);
+        self::assertEquals(DishForOrderFixture::PRICE * 2, (float) $responseData['price']);
+        self::assertEquals(OrderStatus::STATUS_NEW, $responseData['status']);
     }
 }
