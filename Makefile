@@ -40,12 +40,6 @@ dc_restart:
 
 app_bash:
 	${DOCKER_COMPOSE} exec -u www-data php-fpm bash
-php:
-	${DOCKER_COMPOSE} exec -u www-data php-fpm bash
-test:
-	${DOCKER_COMPOSE} exec -u www-data php-fpm bin/phpunit
-jwt:
-	${DOCKER_COMPOSE} exec -u www-data php-fpm bin/console lexik:jwt:generate-keypair
 cache:
 	docker-compose -f ./docker/docker-compose.yml exec -u www-data php-fpm bin/console cache:clear
 	docker-compose -f ./docker/docker-compose.yml exec -u www-data php-fpm bin/console cache:clear --env=test
